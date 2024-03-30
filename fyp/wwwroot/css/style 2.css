@@ -1,0 +1,268 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Open+Sans:wght@300&display=swap');
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+html{
+	scroll-behavior: smooth;
+}
+
+body{
+	background-color: #020b0d!important;
+font-family: 'Open Sans', sans-serif;
+
+}
+header{
+	padding: 10px 0px;
+}
+.logo{
+	padding: 0px 25px;
+}
+.bg-body-tertiary{
+	background: transparent !important;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+  color: #fff;
+  padding: 10px 20px;
+ font-weight: 900
+}
+ .navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+	color: #00a7ac;
+}
+.navbar-nav .nav-item{
+	padding: 0px 20px
+}
+.rounded-circle{
+	border: 1px solid #00a7ac;
+	width: 45px;
+	height: 45px;
+	text-align: center;
+	padding-top: 11px;
+	margin: 5px;
+}
+.btn-primary{
+	text-align: center;
+	text-transform: capitalize;
+	padding:10px 30px;
+	background-color: #00a7ac;
+}
+.btn-primary:hover{
+	background: #fff;
+	color:#595959;
+	border: 1px solid #000;
+}
+i{
+	color: #fff;
+}
+.btn-primary:hover i{
+	color: #00a7ac;
+}
+.signin{
+	background-color: transparent;
+	border-color: #00a7ac;
+	color: #00a7ac;
+}
+.navbar-nav .nav-link:focus, .navbar-nav .nav-link:hover{
+	color: #00a7ac;
+}
+.dark{
+	background:linear-gradient(rgba(23,23,23,0.8),rgba(23,23,0.8)),url(../img/banner.png);
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat; 
+	min-height: 75vh;
+	border-radius: 10px;
+	padding: 33px 0px
+}
+.d-flex{
+	justify-content: center;
+	margin: auto auto;
+	
+	width: 100%;
+	align-items: center;
+}
+.text{
+	font-size: 72px;
+	font-weight: 900;
+	color: #fff;
+	text-transform: capitalize;
+	padding-top: 52px;
+}
+.bodytext{
+	color: #fff;
+	font-size: 22px;
+	line-height: 45px;
+	text-transform: capitalize;
+	letter-spacing: 10px;
+	word-spacing: 10px;
+}
+.search{
+	background: #fff;
+	border-radius: 50px;
+	padding: 7px;
+	justify-content: flex-start;
+}
+input[type=search]
+{
+	width: 50%;
+	border: none;
+}
+
+input[type=search]:hover,input[type=search]:focus{
+	color: #00a7ac;
+	box-shadow: none;
+}
+i.bi-search{
+	color: #00a7ac;
+	font-size: 22px;
+
+}
+.btn-secondary {
+	background: #fff;
+	color: #000;
+	border: none;
+}
+.btn-secondary:hover, .btn-secondary:active{
+	border: none;
+	background: #fff;
+	color: #000;
+}
+.btn-secondary .dropdown-toggle .show{
+background: #fff;
+}
+.btn-outline-success{
+	border-radius: 25px;
+	padding: 7px 35px;
+	background: #00a7ac;
+	font-size: 20px;
+	color: #fff;
+}
+.btn-outline-success:hover{
+	background: #fff;
+	color: #000;
+	border: 1px solid #000;
+}
+#listing{
+	background:#030f11;
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-image: url(../img/bgimg.png);
+	padding-bottom: 10px;
+	min-height:800px;
+}
+.popular{
+font-size: 32px;
+font-weight: 700;
+text-transform: capitalize;
+color: #fff;	
+padding:20px 5px;
+}
+.card-body{
+	background: #001618;
+	border-radius: 5px;
+	color: #fff;
+	position: relative;
+}
+.bookmark.rounded-circle{
+width: 35px;
+height: 35px;
+position: absolute;
+top: 15px;
+right: 15px;
+}
+.bi-bookmark{
+font-size: 18px;
+color: #00a7ac;
+position: absolute;
+top: 5px;
+left: 8px;
+}
+.card{
+	align-items: flex-start;
+	background: transparent ! important;
+	color: #fff
+}
+
+.card-title a{
+	text-transform: capitalize;
+	font-weight: 600;
+	letter-spacing: 2px;
+	font-size: 25px;
+}
+.card-title a:hover{
+	color: #00a7ac;
+
+}
+.card-title  i{
+	font-size: 15px;
+	color: #00a7ac;
+}
+.card-text{
+	color: #fff;
+	text-align: justify;
+	font-size: 16px;
+	overflow: hidden;
+}
+.apply-link{
+	position: relative;
+	text-transform:capitalize;
+	text-decoration: none;
+	color: #fff;
+	position: relative;
+	transition: 1s ease;
+}
+.apply-link:hover{
+	color: #00a7ac;
+}
+.arrow:before{
+	position: relative;
+	content: url(../img/arrow.svg);
+	top: 0;
+	left: 15px;
+
+}
+footer{
+	background: #000;
+	color: #fff;
+}
+.footer{
+	padding: 15px 0px;
+}
+.footer .col ul {
+	list-style: none;
+	padding: 0px 20px
+}
+.footer .col ul li{
+	text-transform: capitalize;
+	text-align: justify;
+	padding: 10px 20px;
+	font-size:18px;
+}
+.nav-tabs{
+	border: none;
+	justify-content: center;
+	column-gap: 30px;
+}
+
+.nav-tabs .nav-link {
+	text-align: center;
+	text-transform: capitalize;
+	padding:1px 15px;
+	background-color: #00a7ac;
+	font-size: 13px;
+	border:1px solid #00a7ac;
+	text-decoration: none;
+	color: #fff
+}
+.nav-tabs .nav-link.active{
+	color: #000;
+	background: #fff;
+}
+
+
+
+
+

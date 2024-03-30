@@ -21,12 +21,18 @@ public class fypContext : IdentityDbContext<IdentityUser>
         // Add your customizations after calling base.OnModelCreating(builder);
     }
 
-public DbSet<fyp.Models.Category> Category { get; set; } = default!;
 
-    public DbSet<Vaccancy> Vaccancy { get; set;} = default!;
-    
-    public DbSet<Corporation> corporations { get; set; } = default!;
-    public DbSet<Student> students { get; set; } = default!;
+        public DbSet<CategoryModel> Categories { get; set; }
+    public DbSet<CorporationModel> corporations{ get; set; }
+    public DbSet<JobsModel> jobs { get; set; }
+
+public DbSet<fyp.Models.SkillsModel> SkillsModel { get; set; } = default!;
+
+public DbSet<fyp.Models.StudentModel> StudentModel { get; set; } = default!;
+
+public DbSet<fyp.Models.QualificationModel> QualificationModel { get; set; } = default!;
+
+public DbSet<fyp.Models.ApplicationModel> ApplicationModel { get; set; } = default!;
 
 
 }

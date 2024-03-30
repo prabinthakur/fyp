@@ -1,0 +1,48 @@
+﻿@model fyp.Models.QualificationModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>QualificationModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CurrentEducation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CurrentEducation)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.InstituteName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.InstituteName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MajorSubject)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MajorSubject)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CompletionYear)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CompletionYear)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Student)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Student.StudentId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.QualificationId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
