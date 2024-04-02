@@ -11,6 +11,7 @@ namespace fyp.Models
 
         public string CorporationLocation { get; set; }
 
+        [DataType(DataType.Url)]
         public string CorporationUrl { get; set; }
 
     }

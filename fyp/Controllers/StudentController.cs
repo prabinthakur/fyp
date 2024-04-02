@@ -14,6 +14,8 @@ namespace fyp.Controllers
     {
         private readonly fypContext _context;
 
+       
+
         public StudentController(fypContext context)
         {
             _context = context;
@@ -54,7 +56,7 @@ namespace fyp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StudentId,FullName,Email,PhoneNo,Address,Resume")] StudentModel studentModel)
+        public async Task<IActionResult> Create([Bind("StudentId,FullName,Email,PhoneNo,Address,Resume")] StudentModel studentModel,IFormFile file)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +64,8 @@ namespace fyp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+
             return View(studentModel);
         }
 

@@ -7,9 +7,12 @@ namespace fyp.Models
         [Key]
         public int ApplicationId { get; set; }
 
+        [DataType(DataType.Date)]
+
         public DateOnly AppliedDate { get; set; }
 
         public string status { get; set; }
+
 
         public int JobsId { get; set; }
         public int StudentId { get; set; }

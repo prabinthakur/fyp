@@ -227,9 +227,11 @@ left: 8px;
 footer{
 	background: #000;
 	color: #fff;
+	
 }
 .footer{
 	padding: 15px 0px;
+	position:relative;
 }
 .footer .col ul {
 	list-style: none;
