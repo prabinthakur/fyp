@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fyp.Data;
 
@@ -11,9 +12,11 @@ using fyp.Data;
 namespace fyp.Migrations
 {
     [DbContext(typeof(fypContext))]
-    partial class fypContextModelSnapshot : ModelSnapshot
+    [Migration("20240330171314_second")]
+    partial class second
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -235,10 +238,10 @@ namespace fyp.Migrations
                     b.Property<DateOnly>("AppliedDate")
                         .HasColumnType("date");
 
-                    b.Property<int>("JobsId")
+                    b.Property<int>("JobsJobId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StudentId")
+                    b.Property<int>("JosbId")
                         .HasColumnType("int");
 
                     b.Property<string>("status")
@@ -247,9 +250,7 @@ namespace fyp.Migrations
 
                     b.HasKey("ApplicationId");
 
-                    b.HasIndex("JobsId");
-
-                    b.HasIndex("StudentId");
+                    b.HasIndex("JobsJobId");
 
                     b.ToTable("ApplicationModel");
                 });
@@ -337,7 +338,7 @@ namespace fyp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(10,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("JobId");
 
@@ -491,19 +492,11 @@ namespace fyp.Migrations
                 {
                     b.HasOne("fyp.Models.JobsModel", "Jobs")
                         .WithMany()
-                        .HasForeignKey("JobsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("fyp.Models.StudentModel", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentId")
+                        .HasForeignKey("JobsJobId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Jobs");
-
-                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("fyp.Models.JobsModel", b =>

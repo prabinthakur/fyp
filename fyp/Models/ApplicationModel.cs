@@ -11,8 +11,16 @@ namespace fyp.Models
 
         public string status { get; set; }
 
-        public int JosbId { get; set; }
+        public int JobsId { get; set; }
+        public int StudentId { get; set; }
 
         public virtual JobsModel Jobs { get; set; }
+
+       
+
+        public virtual StudentModel Student { get; set; }
+
+
+
     }
 }

@@ -1,5 +1,9 @@
 ﻿using fyp.Migrations;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.CompilerServices;
 
 namespace fyp.Models
 {
@@ -14,6 +18,7 @@ namespace fyp.Models
 
         public string Requirement { get; set; }
 
+        [Column(TypeName ="decimal(10,2)")]
         public decimal Salary { get; set; }
 
         [DataType(DataType.Date)]

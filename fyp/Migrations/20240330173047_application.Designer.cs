@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fyp.Data;
 
@@ -11,9 +12,11 @@ using fyp.Data;
 namespace fyp.Migrations
 {
     [DbContext(typeof(fypContext))]
-    partial class fypContextModelSnapshot : ModelSnapshot
+    [Migration("20240330173047_application")]
+    partial class application
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -235,21 +238,24 @@ namespace fyp.Migrations
                     b.Property<DateOnly>("AppliedDate")
                         .HasColumnType("date");
 
-                    b.Property<int>("JobsId")
+                    b.Property<int>("JobsJobId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StudentId")
+                    b.Property<int>("JosbId")
                         .HasColumnType("int");
 
                     b.Property<string>("status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("studentid")
+                        .HasColumnType("int");
+
                     b.HasKey("ApplicationId");
 
-                    b.HasIndex("JobsId");
+                    b.HasIndex("JobsJobId");
 
-                    b.HasIndex("StudentId");
+                    b.HasIndex("studentid");
 
                     b.ToTable("ApplicationModel");
                 });
@@ -491,13 +497,13 @@ namespace fyp.Migrations
                 {
                     b.HasOne("fyp.Models.JobsModel", "Jobs")
                         .WithMany()
-                        .HasForeignKey("JobsId")
+                        .HasForeignKey("JobsJobId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("fyp.Models.StudentModel", "Student")
                         .WithMany()
-                        .HasForeignKey("StudentId")
+                        .HasForeignKey("studentid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
