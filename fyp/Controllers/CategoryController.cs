@@ -22,7 +22,8 @@ namespace fyp.Controllers
         // GET: Category
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categories.ToListAsync());
+            IQueryable<CategoryModel> query = _context.Categories;
+            return View(await query.ToListAsync());
         }
 
         // GET: Category/Details/5

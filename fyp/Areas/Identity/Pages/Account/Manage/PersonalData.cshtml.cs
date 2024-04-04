@@ -2,9 +2,11 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 using System;
 using System.Threading.Tasks;
+using fyp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Logging;
 
 namespace fyp.Areas.Identity.Pages.Account.Manage
@@ -32,5 +34,17 @@ namespace fyp.Areas.Identity.Pages.Account.Manage
 
             return Page();
         }
+
+
+
+
+
+
+
+       
+
+     
+       
+
     }
 }

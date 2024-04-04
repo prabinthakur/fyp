@@ -4,80 +4,67 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.JobName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Requirement)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Salary)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PostedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Deadline)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Corporation)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.JobName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Requirement)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Salary)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Deadline)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.CategoryId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Corporation.CorporationId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.JobId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.JobId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.JobId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+  
+<div class="row">
+
+    
+    @foreach (var item in Model) {
+
+    
+    <div class="col-lg-6 col-md-12">
+        <div class="card-body p-4">
+            <div class="bookmark rounded-circle">
+                <i class="bi bi-bookmark"></i>
+            </div>
+
+            <div class="d-flex flex-row mb-3 card">
+
+                <div class="p-2">
+                    <img src="img/banner.png" class="rounded-circle" alt="images" style="width: 55px;height: 55px;padding: 0px">
+                </div>
+
+                <div class="p-2">
+                    <h5 class="card-title">
+                        <a class="nav-link" href="#">@item.Category.CategoryName</a>
+                        <i class="bi bi-briefcase pe-2"></i>@item.Corporation.CorporationName
+                    </h5>
+                    <div class="d-inline-flex p-2 card-text">
+                        <p class="" style="width:500px">
+                            
+                            @item.Description
+
+                        </p>
+                    </div>
+
+
+
+
+                        <a href="jobs/Details/@item.JobId"  class="apply-link">
+                            Details
+
+
+                            <span class="arrow">
+                                <img src="img/circle.svg">
+                            </span>
+                        </a>
+
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    }
+
+    
+
+
+
+
+
+
+</div>
+
+ 

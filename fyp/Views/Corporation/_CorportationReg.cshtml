@@ -1,0 +1,42 @@
+﻿@model fyp.Models.CorporationModel
+
+<h4>CorporationModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="_CorportationReg">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CorporationName" class="control-label"></label>
+                <input asp-for="CorporationName" class="form-control" />
+                <span asp-validation-for="CorporationName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CorporationDescription" class="control-label"></label>
+                <input asp-for="CorporationDescription" class="form-control" />
+                <span asp-validation-for="CorporationDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CorporationLocation" class="control-label"></label>
+                <input asp-for="CorporationLocation" class="form-control" />
+                <span asp-validation-for="CorporationLocation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CorporationUrl" class="control-label"></label>
+                <input asp-for="CorporationUrl" class="form-control" />
+                <span asp-validation-for="CorporationUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

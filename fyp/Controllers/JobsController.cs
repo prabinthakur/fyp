@@ -49,8 +49,8 @@ namespace fyp.Controllers
         // GET: Jobs/Create
         public IActionResult Create()
         {
-            ViewData["Categoryid"] = new SelectList(_context.Categories, "CategoryId", "CategoryId");
-            ViewData["CorporationId"] = new SelectList(_context.corporations, "CorporationId", "CorporationId");
+            ViewData["Categoryid"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
+            ViewData["CorporationId"] = new SelectList(_context.corporations, "CorporationId", "CorporationName");
             return View();
         }
 
@@ -67,8 +67,8 @@ namespace fyp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Categoryid"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", jobsModel.Categoryid);
-            ViewData["CorporationId"] = new SelectList(_context.corporations, "CorporationId", "CorporationId", jobsModel.CorporationId);
+            ViewData["Categoryid"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", jobsModel.Categoryid);
+            ViewData["CorporationId"] = new SelectList(_context.corporations, "CorporationId", "CorporationName", jobsModel.CorporationId);
             return View(jobsModel);
         }
 

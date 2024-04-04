@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace fyp.Models
 {
@@ -13,6 +15,7 @@ namespace fyp.Models
         public string Address { get; set;}
 
         public string Resume { get; set;}
+      
 
     }
 }
