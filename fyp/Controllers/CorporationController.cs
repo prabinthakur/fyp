@@ -46,7 +46,7 @@ namespace fyp.Controllers
         // GET: Corporation/Create
         public IActionResult Create()
         {
-            return View();
+            return View("_CorportationReg");
         }
 
         // POST: Corporation/Create
@@ -62,7 +62,7 @@ namespace fyp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(corporationModel);
+            return PartialView("", corporationModel);
         }
 
         // GET: Corporation/Edit/5
