@@ -11,7 +11,7 @@ using fyp.Data;
 
 namespace fyp.Migrations
 {
-    [DbContext(typeof(fypContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20240330173047_application")]
     partial class application
     {

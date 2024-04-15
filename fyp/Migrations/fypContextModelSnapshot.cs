@@ -10,7 +10,7 @@ using fyp.Data;
 
 namespace fyp.Migrations
 {
-    [DbContext(typeof(fypContext))]
+    [DbContext(typeof(AppDbContext))]
     partial class fypContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

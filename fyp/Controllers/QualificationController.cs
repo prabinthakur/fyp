@@ -12,9 +12,9 @@ namespace fyp.Controllers
 {
     public class QualificationController : Controller
     {
-        private readonly fypContext _context;
+        private readonly AppDbContext _context;
 
-        public QualificationController(fypContext context)
+        public QualificationController(AppDbContext context)
         {
             _context = context;
         }

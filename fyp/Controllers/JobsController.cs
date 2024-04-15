@@ -12,9 +12,9 @@ namespace fyp.Controllers
 {
     public class JobsController : Controller
     {
-        private readonly fypContext _context;
+        private readonly AppDbContext _context;
 
-        public JobsController(fypContext context)
+        public JobsController(AppDbContext context)
         {
             _context = context;
         }

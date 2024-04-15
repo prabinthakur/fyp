@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace fyp.Data;
 
-public class fypContext : IdentityDbContext<IdentityUser>
+public class AppDbContext : IdentityDbContext<IdentityUser>
 {
-    public fypContext(DbContextOptions<fypContext> options)
+    public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
     {
     }

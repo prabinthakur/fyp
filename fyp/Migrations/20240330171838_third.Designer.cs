@@ -11,7 +11,7 @@ using fyp.Data;
 
 namespace fyp.Migrations
 {
-    [DbContext(typeof(fypContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20240330171838_third")]
     partial class third
     {

@@ -12,9 +12,9 @@ namespace fyp.Controllers
 {
     public class CorporationController : Controller
     {
-        private readonly fypContext _context;
+        private readonly AppDbContext _context;
 
-        public CorporationController(fypContext context)
+        public CorporationController(AppDbContext context)
         {
             _context = context;
         }

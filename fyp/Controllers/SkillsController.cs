@@ -12,9 +12,9 @@ namespace fyp.Controllers
 {
     public class SkillsController : Controller
     {
-        private readonly fypContext _context;
+        private readonly AppDbContext _context;
 
-        public SkillsController(fypContext context)
+        public SkillsController(AppDbContext context)
         {
             _context = context;
         }

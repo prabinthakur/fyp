@@ -12,11 +12,11 @@ namespace fyp.Controllers
 {
     public class StudentController : Controller
     {
-        private readonly fypContext _context;
+        private readonly AppDbContext _context;
 
        
 
-        public StudentController(fypContext context)
+        public StudentController(AppDbContext context)
         {
             _context = context;
         }

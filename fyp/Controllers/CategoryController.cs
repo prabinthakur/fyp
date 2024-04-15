@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using fyp.Data;
 using fyp.Models;
+using fyp.Data;
 
 namespace fyp.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly fypContext _context;
+        private readonly AppDbContext _context;
 
-        public CategoryController(fypContext context)
+        public CategoryController(AppDbContext context)
         {
             _context = context;
         }
