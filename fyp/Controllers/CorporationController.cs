@@ -13,10 +13,12 @@ namespace fyp.Controllers
     public class CorporationController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public CorporationController(AppDbContext context)
+        public CorporationController(AppDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Corporation
@@ -46,7 +48,7 @@ namespace fyp.Controllers
         // GET: Corporation/Create
         public IActionResult Create()
         {
-            return View("_CorportationReg");
+            return View();
         }
 
         // POST: Corporation/Create
@@ -54,15 +56,49 @@ namespace fyp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CorporationId,CorporationName,CorporationDescription,CorporationLocation,CorporationUrl")] CorporationModel corporationModel)
+        public async Task<IActionResult> Create(CorporationModel corporationModel,IFormFile file)
         {
+
+
+
+
+            string upload = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+
+            if (!Directory.Exists(upload))
+            {
+
+                Directory.CreateDirectory(upload);
+
+            }
+            String filepath = Path.Combine(upload, file.FileName);
+            using (var filestream = new FileStream(filepath, FileMode.Create))
+            {
+                file.CopyTo(filestream);
+                corporationModel.ImageUrl = "/uploads/" + file.FileName;
+            }
+
+
+
+
+
+
             if (ModelState.IsValid)
             {
+
+              corporationModel.ImageUrl = "/uploads/" + file.FileName;
                 _context.Add(corporationModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return PartialView("", corporationModel);
+
+
+
+
+
+
+
+
+                return View(corporationModel);
         }
 
         // GET: Corporation/Edit/5

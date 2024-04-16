@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
 
 namespace fyp.Models
@@ -15,6 +16,9 @@ namespace fyp.Models
         public string Address { get; set;}
 
         public string Resume { get; set;}
+
+        [ValidateNever]
+        public string ImageUrl { get; set;}
       
 
     }

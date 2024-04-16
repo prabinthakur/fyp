@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace fyp.Models
 {
     public class CorporationModel
     {
+
         [Key]
         public int CorporationId { get; set; }
         public string CorporationName { get; set; }
@@ -11,8 +13,15 @@ namespace fyp.Models
 
         public string CorporationLocation { get; set; }
 
+
+
+
         [DataType(DataType.Url)]
-        public string CorporationUrl { get; set; }
+        public string  CorporationUrl { get; set; }
+
+      
+        public string? ImageUrl { get; set; }
+
 
 
 

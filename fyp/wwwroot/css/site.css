@@ -19,6 +19,10 @@ html {
 }
 
 body{
-    color:white;
+    color:#fff !important
 }
+.table{
+    color:white !important
+}
+
 
