@@ -8,14 +8,13 @@ namespace fyp.Models
         public int ApplicationId { get; set; }
 
         [DataType(DataType.Date)]
+        public DateTime AppliedDate { get; set; } = DateTime.Now;
 
-        public DateOnly AppliedDate { get; set; }
-
-        public string status { get; set; }
+        public string status { get; set; } = "pending";
 
 
-        public int JobsId { get; set; }
-        public int StudentId { get; set; }
+        public int? JobsId { get; set; }
+        public int? StudentId { get; set; }
 
         public virtual JobsModel Jobs { get; set; }
 

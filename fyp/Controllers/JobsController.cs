@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using fyp.Data;
 using fyp.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace fyp.Controllers
 {
@@ -14,9 +15,13 @@ namespace fyp.Controllers
     {
         private readonly AppDbContext _context;
 
-        public JobsController(AppDbContext context)
+
+        private readonly SignInManager<IdentityUser>_SignInManager;
+        public JobsController(AppDbContext context, SignInManager<IdentityUser> signInManager)
         {
             _context = context;
+            _SignInManager= signInManager;
+
         }
 
         // GET: Jobs
@@ -43,6 +48,11 @@ namespace fyp.Controllers
                 return NotFound();
             }
 
+            TempData["Currentjobid"] = id;
+
+
+          
+
             return View(jobsModel);
         }
 
@@ -59,7 +69,7 @@ namespace fyp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("JobId,JobName,Location,Description,Requirement,Salary,PostedDate,Deadline,Categoryid,CorporationId")] JobsModel jobsModel)
+        public async Task<IActionResult> Create(JobsModel jobsModel)
         {
             if (ModelState.IsValid)
             {

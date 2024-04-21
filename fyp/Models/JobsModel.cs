@@ -1,4 +1,5 @@
-﻿using fyp.Migrations;
+﻿
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
@@ -30,7 +31,9 @@ namespace fyp.Models
         public int Categoryid { get; set; }
         public int CorporationId { get; set; }
 
+        [ValidateNever]
         public virtual CategoryModel Category { get; set; }
+        [ValidateNever]
         public virtual CorporationModel Corporation { get; set; }
 
 

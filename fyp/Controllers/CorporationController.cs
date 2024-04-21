@@ -85,6 +85,7 @@ namespace fyp.Controllers
             if (ModelState.IsValid)
             {
 
+
               corporationModel.ImageUrl = "/uploads/" + file.FileName;
                 _context.Add(corporationModel);
                 await _context.SaveChangesAsync();

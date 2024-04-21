@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -49,8 +52,7 @@
                             <button class="btn btn-primary rounded-pill signin"> Sigin
                                
           	<i class="bi bi-person-circle" style="font-size: 20px;color: #00a7ac;padding: 0px 10px"></i>
-@*                                 <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register"></a>
- *@
+
                             </button>
                             </a>
         </li>
@@ -66,11 +68,26 @@
         </li>
 
 
-        <li class="p-0">
+      <li class="nav-item">
 
-                            
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                 @UserManager.GetUserName(User)
+                              
 
-        </li>
+                                
+                            }
+
+      </li>
+
+                        <li class="nav-item">
+
+                        <a asp-area="Identity" asp-page="/Account/Logout" class="nav-link">Logout</a>
+
+                       </li>
+
+
+                        
                       
     
       </ul>

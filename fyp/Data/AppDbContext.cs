@@ -22,7 +22,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
     }
 
 
-        public DbSet<CategoryModel> Categories { get; set; }
+    public DbSet<CategoryModel> Categories { get; set; }
     public DbSet<CorporationModel> corporations{ get; set; }
     public DbSet<JobsModel> jobs { get; set; }
 

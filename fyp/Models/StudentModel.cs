@@ -15,6 +15,8 @@ namespace fyp.Models
         public string PhoneNo { get; set;}
         public string Address { get; set;}
 
+
+        [ValidateNever]
         public string Resume { get; set;}
 
         [ValidateNever]

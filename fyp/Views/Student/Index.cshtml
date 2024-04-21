@@ -27,6 +27,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Resume)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -46,8 +49,18 @@
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Resume)
+
+                    <object data="@item.Resume" type="application/pdf" width="400px" height="400px">
+                        <p>
+                            Your browser does not support PDF files.
+                            <a href="mypdf.pdf">Download the file instead</a>
+                        </p>
+                    </object>
+               
             </td>
+                <td>
+                  <img src="@item.ImageUrl" height="50" width="50" />
+                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.StudentId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.StudentId">Details</a> |

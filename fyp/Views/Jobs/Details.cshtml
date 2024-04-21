@@ -1,10 +1,16 @@
 ﻿@model fyp.Models.JobsModel
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 @{
     ViewData["Title"] = "Details";
 }
 
 <h1>Details</h1>
+
+
+
+
 
 <div>
   
@@ -67,6 +73,30 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.JobId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+    <a asp-action="Index">Back to List</a>|
+
+
+ 
+
+        @if (SignInManager.IsSignedIn(User))
+        {
+            
+
+           
+                
+            <form asp-action="Create" asp-controller="Application" method="post">
+
+                <button type="submit" value="subbmit" class="nav-item nav-item">Apply</button>
+            </form>
+            <a asp-action="Create" asp-controller="Application" method="post">Apply</a>
+        }
+        else
+        {
+           
+            
+                <a class="nav-link" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            
+        }
+    
 </div>

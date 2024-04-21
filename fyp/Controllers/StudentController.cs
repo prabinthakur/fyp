@@ -13,12 +13,14 @@ namespace fyp.Controllers
     public class StudentController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
        
 
-        public StudentController(AppDbContext context)
+        public StudentController(AppDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Student
@@ -56,10 +58,50 @@ namespace fyp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StudentId,FullName,Email,PhoneNo,Address,Resume")] StudentModel studentModel,IFormFile file)
+        public async Task<IActionResult> Create(StudentModel studentModel,IFormFile file, IFormFile file2)
         {
+
+
+        
+
+
+            string FileUpload = Path.Combine(_webHostEnvironment.WebRootPath, "FileFolder");
+            if (!Directory.Exists(FileUpload))
+            {
+
+
+                Directory.CreateDirectory(FileUpload);
+
+            }
+            string filepath=Path.Combine(FileUpload, file.FileName);
+            using(var filestream= new FileStream(filepath,FileMode.Create))
+            {
+                file.CopyTo(filestream);
+
+                studentModel.Resume = "/FileUpload/" + file.FileName;
+
+
+            }
+
+
+            string ImageUpload = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+
+            string ImagePath = Path.Combine(ImageUpload, file2.FileName);
+
+            using(var Filestream=new FileStream(ImagePath,FileMode.Create))
+            {
+                file2.CopyTo(Filestream);
+                studentModel.ImageUrl = "/uploads/" + file2.FileName;
+            }
+
+
+            
+
+
             if (ModelState.IsValid)
             {
+                studentModel.Resume="/FileUpload/" + file.FileName;
+                studentModel.ImageUrl="/uploads/" + file2.FileName;
                 _context.Add(studentModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
