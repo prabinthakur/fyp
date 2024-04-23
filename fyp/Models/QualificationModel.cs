@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace fyp.Models
 {
@@ -12,7 +13,8 @@ namespace fyp.Models
         [DataType(DataType.Date)]
         public DateOnly CompletionYear { get; set; }
 
-        public int StudentId { get; set; }
+        public int ? StudentId { get; set; }
+        [ValidateNever]
 
         public virtual StudentModel Student { get; set; }
 

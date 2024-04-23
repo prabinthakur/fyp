@@ -64,41 +64,6 @@ namespace fyp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "corporations",
-                columns: table => new
-                {
-                    CorporationId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CorporationName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CorporationDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CorporationLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CorporationUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_corporations", x => x.CorporationId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "StudentModel",
-                columns: table => new
-                {
-                    StudentId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Resume = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StudentModel", x => x.StudentId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -205,6 +170,53 @@ namespace fyp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "corporations",
+                columns: table => new
+                {
+                    CorporationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CorporationName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CorporationDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CorporationLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CorporationUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_corporations", x => x.CorporationId);
+                    table.ForeignKey(
+                        name: "FK_corporations_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StudentModel",
+                columns: table => new
+                {
+                    StudentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Resume = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StudentModel", x => x.StudentId);
+                    table.ForeignKey(
+                        name: "FK_StudentModel_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "jobs",
                 columns: table => new
                 {
@@ -217,8 +229,8 @@ namespace fyp.Migrations
                     Salary = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     PostedDate = table.Column<DateOnly>(type: "date", nullable: false),
                     Deadline = table.Column<DateOnly>(type: "date", nullable: false),
-                    Categoryid = table.Column<int>(type: "int", nullable: false),
-                    CorporationId = table.Column<int>(type: "int", nullable: false)
+                    Categoryid = table.Column<int>(type: "int", nullable: true),
+                    CorporationId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -227,14 +239,12 @@ namespace fyp.Migrations
                         name: "FK_jobs_Categories_Categoryid",
                         column: x => x.Categoryid,
                         principalTable: "Categories",
-                        principalColumn: "CategoryId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "CategoryId");
                     table.ForeignKey(
                         name: "FK_jobs_corporations_CorporationId",
                         column: x => x.CorporationId,
                         principalTable: "corporations",
-                        principalColumn: "CorporationId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "CorporationId");
                 });
 
             migrationBuilder.CreateTable(
@@ -247,7 +257,7 @@ namespace fyp.Migrations
                     InstituteName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MajorSubject = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CompletionYear = table.Column<DateOnly>(type: "date", nullable: false),
-                    StudentId = table.Column<int>(type: "int", nullable: false)
+                    StudentId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -256,8 +266,7 @@ namespace fyp.Migrations
                         name: "FK_QualificationModel_StudentModel_StudentId",
                         column: x => x.StudentId,
                         principalTable: "StudentModel",
-                        principalColumn: "StudentId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "StudentId");
                 });
 
             migrationBuilder.CreateTable(
@@ -268,8 +277,8 @@ namespace fyp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AppliedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    JobsId = table.Column<int>(type: "int", nullable: true),
-                    StudentId = table.Column<int>(type: "int", nullable: true)
+                    JobsId = table.Column<int>(type: "int", nullable: false),
+                    StudentId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -278,12 +287,14 @@ namespace fyp.Migrations
                         name: "FK_ApplicationModel_StudentModel_StudentId",
                         column: x => x.StudentId,
                         principalTable: "StudentModel",
-                        principalColumn: "StudentId");
+                        principalColumn: "StudentId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ApplicationModel_jobs_JobsId",
                         column: x => x.JobsId,
                         principalTable: "jobs",
-                        principalColumn: "JobId");
+                        principalColumn: "JobId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -293,14 +304,15 @@ namespace fyp.Migrations
                     SkillId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SkillsTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    JobsId = table.Column<int>(type: "int", nullable: false)
+                    JobsId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    JobsJobId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SkillsModel", x => x.SkillId);
                     table.ForeignKey(
-                        name: "FK_SkillsModel_jobs_JobsId",
-                        column: x => x.JobsId,
+                        name: "FK_SkillsModel_jobs_JobsJobId",
+                        column: x => x.JobsJobId,
                         principalTable: "jobs",
                         principalColumn: "JobId",
                         onDelete: ReferentialAction.Cascade);
@@ -356,6 +368,11 @@ namespace fyp.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_corporations_UserId",
+                table: "corporations",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_jobs_Categoryid",
                 table: "jobs",
                 column: "Categoryid");
@@ -371,9 +388,14 @@ namespace fyp.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SkillsModel_JobsId",
+                name: "IX_SkillsModel_JobsJobId",
                 table: "SkillsModel",
-                column: "JobsId");
+                column: "JobsJobId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudentModel_UserId",
+                table: "StudentModel",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -407,9 +429,6 @@ namespace fyp.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "StudentModel");
 
             migrationBuilder.DropTable(
@@ -420,6 +439,9 @@ namespace fyp.Migrations
 
             migrationBuilder.DropTable(
                 name: "corporations");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

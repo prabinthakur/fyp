@@ -14,18 +14,29 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
+using fyp.Data;
 
 namespace fyp.Areas.Identity.Pages.Account
 {
+    [AllowAnonymous]
     public class LoginModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly ILogger<LoginModel> _logger;
+        private readonly RoleManager<IdentityRole> _roleManager;
+
+        private readonly AppDbContext _context;
+
+        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager,AppDbContext context)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _userManager = userManager;
+            _roleManager = roleManager;
+            _context = context;
         }
 
         /// <summary>
@@ -115,8 +126,58 @@ namespace fyp.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                   
+
+                    if (_signInManager.IsSignedIn(User))
+                    {
+                        IdentityUser user= await _userManager.GetUserAsync(User);
+                        if (user!=null)
+                        {
+
+                            if (await _userManager.IsInRoleAsync(user,"Student"))
+                            {
+                               
+                        var  i=     _context.StudentModel.FirstOrDefault(u=>u.UserId==user.Id);
+
+                                HttpContext.Session.SetInt32("Studentid", i.StudentId);
+
+                              
+
+
+                            }
+                            else if(await _userManager.IsInRoleAsync(user,"Company"))
+                            {
+
+                                var i = _context.corporations.FirstOrDefault(u => u.UserId == user.Id);
+
+                                HttpContext.Session.SetInt32("Companyid", i.CorporationId);
+
+                            }
+                            else
+                            {
+                                await _userManager.IsInRoleAsync(user, "admin");
+                            }
+
+
+
+
+
+
+
+                        }
+
+                     //   await _userManager.IsInRoleAsync(user, "Student");
+
+
+                    }
                     return LocalRedirect(returnUrl);
                 }
+
+
+
+
+
+
                 if (result.RequiresTwoFactor)
                 {
                     return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });

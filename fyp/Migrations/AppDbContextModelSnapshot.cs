@@ -235,10 +235,10 @@ namespace fyp.Migrations
                     b.Property<DateTime>("AppliedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("JobsId")
+                    b.Property<int>("JobsId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("StudentId")
+                    b.Property<int>("StudentId")
                         .HasColumnType("int");
 
                     b.Property<string>("status")
@@ -298,7 +298,12 @@ namespace fyp.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("CorporationId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("corporations");
                 });
@@ -311,10 +316,10 @@ namespace fyp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("JobId"));
 
-                    b.Property<int>("Categoryid")
+                    b.Property<int?>("Categoryid")
                         .HasColumnType("int");
 
-                    b.Property<int>("CorporationId")
+                    b.Property<int?>("CorporationId")
                         .HasColumnType("int");
 
                     b.Property<DateOnly>("Deadline")
@@ -374,7 +379,7 @@ namespace fyp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StudentId")
+                    b.Property<int?>("StudentId")
                         .HasColumnType("int");
 
                     b.HasKey("QualificationId");
@@ -392,7 +397,10 @@ namespace fyp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SkillId"));
 
-                    b.Property<int>("JobsId")
+                    b.Property<string>("JobsId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("JobsJobId")
                         .HasColumnType("int");
 
                     b.Property<string>("SkillsTitle")
@@ -401,7 +409,7 @@ namespace fyp.Migrations
 
                     b.HasKey("SkillId");
 
-                    b.HasIndex("JobsId");
+                    b.HasIndex("JobsJobId");
 
                     b.ToTable("SkillsModel");
                 });
@@ -438,7 +446,12 @@ namespace fyp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("StudentId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("StudentModel");
                 });
@@ -498,30 +511,39 @@ namespace fyp.Migrations
                 {
                     b.HasOne("fyp.Models.JobsModel", "Jobs")
                         .WithMany()
-                        .HasForeignKey("JobsId");
+                        .HasForeignKey("JobsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("fyp.Models.StudentModel", "Student")
                         .WithMany()
-                        .HasForeignKey("StudentId");
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Jobs");
 
                     b.Navigation("Student");
                 });
 
+            modelBuilder.Entity("fyp.Models.CorporationModel", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("fyp.Models.JobsModel", b =>
                 {
                     b.HasOne("fyp.Models.CategoryModel", "Category")
                         .WithMany()
-                        .HasForeignKey("Categoryid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Categoryid");
 
                     b.HasOne("fyp.Models.CorporationModel", "Corporation")
                         .WithMany()
-                        .HasForeignKey("CorporationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CorporationId");
 
                     b.Navigation("Category");
 
@@ -532,9 +554,7 @@ namespace fyp.Migrations
                 {
                     b.HasOne("fyp.Models.StudentModel", "Student")
                         .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StudentId");
 
                     b.Navigation("Student");
                 });
@@ -543,11 +563,20 @@ namespace fyp.Migrations
                 {
                     b.HasOne("fyp.Models.JobsModel", "Jobs")
                         .WithMany()
-                        .HasForeignKey("JobsId")
+                        .HasForeignKey("JobsJobId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Jobs");
+                });
+
+            modelBuilder.Entity("fyp.Models.StudentModel", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

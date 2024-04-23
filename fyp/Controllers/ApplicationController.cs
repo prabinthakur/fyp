@@ -37,24 +37,25 @@ namespace fyp.Controllers
         public ActionResult Create(int JobId)
         {
 
+
+           
             var jobid = TempData["Currentjobid"];
 
 
-            //if (_signInManager.IsSignedIn(User))
-            //{
+            if (_signInManager.IsSignedIn(User))
+            {
+                ApplicationModel ap = new ApplicationModel()
+                {
 
-            //    _userManager.GetUserId(User);
-                
 
-                    ApplicationModel ap = new ApplicationModel()
-                    {
 
-                        AppliedDate = DateTime.Now,
-                        JobsId = 1 /*Convert.ToInt32(jobid)*/,
-                        status = "Pending",
-                        StudentId = 1
 
-                    };
+                    AppliedDate = DateTime.Now,
+                    JobsId = Convert.ToInt32(jobid),
+                    status = "Pending",
+                    StudentId = HttpContext.Session.GetInt32("Studentid")??0
+
+            };
                     _context.ApplicationModel.Add(ap);
             _context.SaveChanges();
 
@@ -64,7 +65,7 @@ namespace fyp.Controllers
 
 
 
-            //}
+            }
             return RedirectPermanent("/Identity/Account/Login");
            
 

@@ -21,6 +21,8 @@ using Microsoft.Extensions.Logging;
 
 namespace fyp.Areas.Identity.Pages.Account
 {
+
+    [AllowAnonymous]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;

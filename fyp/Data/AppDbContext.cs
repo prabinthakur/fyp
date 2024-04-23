@@ -35,4 +35,6 @@ public DbSet<fyp.Models.QualificationModel> QualificationModel { get; set; } = d
 public DbSet<fyp.Models.ApplicationModel> ApplicationModel { get; set; } = default!;
 
 
+
+
 }

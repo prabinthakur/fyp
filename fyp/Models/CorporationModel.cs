@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
 
 namespace fyp.Models
@@ -14,16 +15,16 @@ namespace fyp.Models
         public string CorporationLocation { get; set; }
 
 
-
-
         [DataType(DataType.Url)]
         public string  CorporationUrl { get; set; }
 
-      
         public string? ImageUrl { get; set; }
 
 
-
+        [ValidateNever]
+        public string? UserId { get; set; }
+        [ValidateNever]
+        public virtual IdentityUser User { get; set; }
 
     }
 }

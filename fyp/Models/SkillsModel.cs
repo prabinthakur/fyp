@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace fyp.Models
 {
@@ -7,8 +8,9 @@ namespace fyp.Models
         [Key]
         public int SkillId { get; set; }
         public string SkillsTitle { get; set; }
-        public int JobsId { get; set; }
+        public string? JobsId { get; set; }
 
+        [ValidateNever]
         public virtual JobsModel Jobs { get; set; }
 
     }

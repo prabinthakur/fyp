@@ -7,35 +7,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using fyp.Data;
 using fyp.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authorization;
 
 namespace fyp.Controllers
 {
-
-    public class JobsController : Controller
+    public class JobsModelsController : Controller
     {
         private readonly AppDbContext _context;
 
-
-        private readonly SignInManager<IdentityUser>_SignInManager;
-        public JobsController(AppDbContext context, SignInManager<IdentityUser> signInManager)
+        public JobsModelsController(AppDbContext context)
         {
             _context = context;
-            _SignInManager= signInManager;
-
-        }
-        [AllowAnonymous]
-
-        // GET: Jobs
-        public async Task<IActionResult> Index()
-        {
-            var fypContext = _context.jobs.Include(j => j.Category).Include(j => j.Corporation).ToList();
-            return View(fypContext);
-          
         }
 
-        // GET: Jobs/Details/5
+        // GET: JobsModels
+        //public async Task<IActionResult> Index()
+        //{
+        //    var appDbContext = _context.jobs.Include(j => j.Category).Include(j => j.Corporation);
+        //    return View(await appDbContext.ToListAsync());
+        //}
+
+        // GET: JobsModels/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -52,23 +43,18 @@ namespace fyp.Controllers
                 return NotFound();
             }
 
-            TempData["Currentjobid"] = id;
-
-
-          
-
             return View(jobsModel);
         }
 
-        // GET: Jobs/Create
+        // GET: JobsModels/Create
         public IActionResult Create()
         {
-            ViewData["Categoryid"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
-            ViewData["CorporationId"] = new SelectList(_context.corporations, "CorporationId", "CorporationName");
+            ViewData["Categoryid"] = new SelectList(_context.Categories, "CategoryId", "CategoryId");
+            ViewData["CorporationId"] = new SelectList(_context.corporations, "CorporationId", "CorporationId");
             return View();
         }
 
-        // POST: Jobs/Create
+        // POST: JobsModels/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -77,18 +63,19 @@ namespace fyp.Controllers
         {
             if (ModelState.IsValid)
             {
-              
+               
+
                 _context.Add(jobsModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Categoryid"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", jobsModel.Categoryid);
-            ViewData["CorporationId"] = new SelectList(_context.corporations, "CorporationId", "CorporationName", jobsModel.CorporationId);
+            ViewData["Categoryid"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", jobsModel.Categoryid);
+            ViewData["CorporationId"] = new SelectList(_context.corporations, "CorporationId", "CorporationId", jobsModel.CorporationId);
             return View(jobsModel);
         }
 
-        // GET: Jobs/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: JobsModels/Edit/5
+        public async Task<IActionResult> Edit(string? id)
         {
             if (id == null)
             {
@@ -105,7 +92,7 @@ namespace fyp.Controllers
             return View(jobsModel);
         }
 
-        // POST: Jobs/Edit/5
+        // POST: JobsModels/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -142,7 +129,7 @@ namespace fyp.Controllers
             return View(jobsModel);
         }
 
-        // GET: Jobs/Delete/5
+        // GET: JobsModels/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -162,7 +149,7 @@ namespace fyp.Controllers
             return View(jobsModel);
         }
 
-        // POST: Jobs/Delete/5
+        // POST: JobsModels/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

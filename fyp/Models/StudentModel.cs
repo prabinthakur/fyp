@@ -9,11 +9,18 @@ namespace fyp.Models
     {
 
         [Key]
-        public int StudentId { get; set; }
+        public int StudentId { get; set;}
         public string FullName { get; set;}
         public string Email { get; set;}
         public string PhoneNo { get; set;}
         public string Address { get; set;}
+
+
+        [ValidateNever]
+        public string ?UserId { get; set;}
+
+        [ValidateNever]
+        public virtual IdentityUser User { get; set;}
 
 
         [ValidateNever]

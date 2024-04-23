@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using fyp.Data;
 using fyp.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace fyp.Controllers
 {
@@ -15,10 +17,15 @@ namespace fyp.Controllers
         private readonly AppDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public CorporationController(AppDbContext context, IWebHostEnvironment webHostEnvironment)
+
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
+        public CorporationController(AppDbContext context, IWebHostEnvironment webHostEnvironment ,UserManager<IdentityUser> userManager,SignInManager<IdentityUser> signInManager)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         // GET: Corporation
@@ -57,7 +64,7 @@ namespace fyp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CorporationModel corporationModel,IFormFile file)
-        {
+            {
 
 
 
@@ -83,21 +90,32 @@ namespace fyp.Controllers
 
 
             if (ModelState.IsValid)
-            {
+            {   if (_signInManager.IsSignedIn(User))
+                {
+                    corporationModel.UserId = _userManager.GetUserId(User);
+
+                    IdentityUser user2 = await _userManager.GetUserAsync(User);
 
 
-              corporationModel.ImageUrl = "/uploads/" + file.FileName;
-                _context.Add(corporationModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                    corporationModel.ImageUrl = "/uploads/" + file.FileName;
+                    _context.Add(corporationModel);
+                     int i=     await _context.SaveChangesAsync();
+                    if (i>0)
+                    {
+
+                        await _userManager.AddToRoleAsync(user2, "Company");
+                        return RedirectToAction("Create", "Jobs");
+
+                    }
+                    
+
+
+
+                }
+
+                
             }
-
-
-
-
-
-
-
 
                 return View(corporationModel);
         }

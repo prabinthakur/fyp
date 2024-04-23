@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace fyp.Models
 {
@@ -13,9 +14,10 @@ namespace fyp.Models
         public string status { get; set; } = "pending";
 
 
-        public int? JobsId { get; set; }
-        public int? StudentId { get; set; }
+        public int JobsId { get; set; }
+        public int StudentId { get; set; }
 
+        [ValidateNever]
         public virtual JobsModel Jobs { get; set; }
 
        

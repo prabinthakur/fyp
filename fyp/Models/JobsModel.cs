@@ -13,13 +13,13 @@ namespace fyp.Models
         [Key]
         public int JobId { get; set; }
         public string JobName { get; set; }
-      
-        public string Location { get;set; }
+
+        public string Location { get; set; }
         public string Description { get; set; }
 
         public string Requirement { get; set; }
 
-        [Column(TypeName ="decimal(10,2)")]
+        [Column(TypeName = "decimal(10,2)")]
         public decimal Salary { get; set; }
 
         [DataType(DataType.Date)]
@@ -28,13 +28,15 @@ namespace fyp.Models
         [DataType(DataType.Date)]
         public DateOnly Deadline { get; set; }
 
-        public int Categoryid { get; set; }
-        public int CorporationId { get; set; }
+        
+        public int? Categoryid { get; set; }
+       
+        public int? CorporationId { get; set; }
 
         [ValidateNever]
-        public virtual CategoryModel Category { get; set; }
+        public virtual CategoryModel  Category { get; set; }
         [ValidateNever]
-        public virtual CorporationModel Corporation { get; set; }
+        public virtual CorporationModel  Corporation { get; set; }
 
 
 

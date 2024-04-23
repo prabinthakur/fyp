@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using fyp.Data;
 using fyp.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace fyp.Controllers
 {
@@ -15,12 +16,19 @@ namespace fyp.Controllers
         private readonly AppDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-       
+        private readonly SignInManager<IdentityUser> _siginManger;
+        private readonly UserManager<IdentityUser> _usermanager;
 
-        public StudentController(AppDbContext context, IWebHostEnvironment webHostEnvironment)
+        private readonly RoleManager<IdentityRole> _rolemanager;    
+
+
+        public StudentController(AppDbContext context, IWebHostEnvironment webHostEnvironment,SignInManager<IdentityUser>signInManager,UserManager<IdentityUser> userManager,RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
+            _siginManger =signInManager;
+            _usermanager = userManager;
+            _rolemanager = roleManager;
         }
 
         // GET: Student
@@ -58,11 +66,11 @@ namespace fyp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(StudentModel studentModel,IFormFile file, IFormFile file2)
+        public async Task<IActionResult> Create(StudentModel studentModel, IFormFile file, IFormFile file2)
         {
 
 
-        
+
 
 
             string FileUpload = Path.Combine(_webHostEnvironment.WebRootPath, "FileFolder");
@@ -73,8 +81,8 @@ namespace fyp.Controllers
                 Directory.CreateDirectory(FileUpload);
 
             }
-            string filepath=Path.Combine(FileUpload, file.FileName);
-            using(var filestream= new FileStream(filepath,FileMode.Create))
+            string filepath = Path.Combine(FileUpload, file.FileName);
+            using (var filestream = new FileStream(filepath, FileMode.Create))
             {
                 file.CopyTo(filestream);
 
@@ -88,22 +96,46 @@ namespace fyp.Controllers
 
             string ImagePath = Path.Combine(ImageUpload, file2.FileName);
 
-            using(var Filestream=new FileStream(ImagePath,FileMode.Create))
+            using (var Filestream = new FileStream(ImagePath, FileMode.Create))
             {
                 file2.CopyTo(Filestream);
                 studentModel.ImageUrl = "/uploads/" + file2.FileName;
             }
 
 
-            
+
 
 
             if (ModelState.IsValid)
             {
-                studentModel.Resume="/FileUpload/" + file.FileName;
-                studentModel.ImageUrl="/uploads/" + file2.FileName;
-                _context.Add(studentModel);
-                await _context.SaveChangesAsync();
+
+
+                if (_siginManger.IsSignedIn(User))
+                {
+                    var userid = _usermanager.GetUserId(User);
+
+                    studentModel.UserId = userid;
+
+                  var user= await _usermanager.GetUserAsync(User);
+
+                    IdentityUser user2= await _usermanager.GetUserAsync(User);
+
+                    studentModel.Resume = "/FileUpload/" + file.FileName;
+                    studentModel.ImageUrl = "/uploads/" + file2.FileName;
+
+
+                    _context.Add(studentModel);
+                    int i = await _context.SaveChangesAsync();
+
+                    if (i > 0)
+                    {
+
+                        await _usermanager.AddToRoleAsync(user2,"Student");
+
+                    }
+                }
+                
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -112,7 +144,7 @@ namespace fyp.Controllers
         }
 
         // GET: Student/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (id == null)
             {
@@ -127,14 +159,15 @@ namespace fyp.Controllers
             return View(studentModel);
         }
 
-        // POST: Student/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StudentId,FullName,Email,PhoneNo,Address,Resume")] StudentModel studentModel)
+
+
+        public async Task<IActionResult> Edit(int id, [Bind("StudentId,FullName,Email,PhoneNo,Address,Resume,ImageUrl")] StudentModel student)
         {
-            if (id != studentModel.StudentId)
+            if (id != student.StudentId)
             {
                 return NotFound();
             }
@@ -143,12 +176,12 @@ namespace fyp.Controllers
             {
                 try
                 {
-                    _context.Update(studentModel);
+                    _context.Update(student);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StudentModelExists(studentModel.StudentId))
+                    if (!studentExists(student.StudentId))
                     {
                         return NotFound();
                     }
@@ -159,8 +192,9 @@ namespace fyp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(studentModel);
+            return View(student);
         }
+
 
         // GET: Student/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -183,7 +217,7 @@ namespace fyp.Controllers
         // POST: Student/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int? id)
         {
             var studentModel = await _context.StudentModel.FindAsync(id);
             if (studentModel != null)
@@ -195,7 +229,7 @@ namespace fyp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StudentModelExists(int id)
+        private bool studentExists(int? id)
         {
             return _context.StudentModel.Any(e => e.StudentId == id);
         }
